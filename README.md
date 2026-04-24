@@ -14,15 +14,31 @@ The goal was not only correctness, but efficiency under constraints:
 
 ## Architecture
 
-Stations are stored in a binary search tree (BST).
+Stations are stored in a Binary Search Tree (BST), where each node represents a station identified by its position.
+
+The BST structure is used to:
+- Maintain stations in sorted order
+- Enable efficient search, insertion, and deletion operations
+- Support ordered traversals (in-order and reverse in-order), which are directly exploited by the pathfinding algorithm
+
+Each node also contains a local structure representing the vehicles available at that station, allowing constant-time access to the maximum reachable distance.
+This design avoids the need for an explicit graph representation and reduces memory overhead.
 
 ## Algorithm Design
 
-Two algorithms: - carsPath() (forward) - carsPathReverse() (backward)
+The system implements two symmetric pathfinding procedures:
 
-Key properties:
--   Path built incrementally during traversal
--   Early termination when destination is reached
+- `carsPath()` for forward traversal (increasing station order)
+- `carsPathReverse()` for backward traversal (decreasing station order)
+
+### Core Mechanics
+
+- The tree is traversed in-order (forward) or reverse in-order (backward)
+- The path is built incrementally during traversal using a linear structure that stores:
+  - current station
+  - predecessor
+  - maximum reachable distance (car autonomy)
+- At each step, the algorithm determines whether the next station is directly reachable or requires extending the path through previously visited nodes
 
 ## Complexity Analysis
 
@@ -48,25 +64,6 @@ requiring repeated scans over partial paths.
 
 Total space complexity: O(n)
 
-
-## Input Format
-
-aggiungi-stazione `<id>`{=html} `<num_auto>`{=html} \<autonomie...\>\
-demolisci-stazione `<id>`{=html}\
-aggiungi-auto `<stazione>`{=html} `<autonomia>`{=html}\
-rottama-auto `<stazione>`{=html} `<autonomia>`{=html}\
-`<start>`{=html} `<end>`{=html}
-
-## Output
-
-Path: 10 15 20 30
-
-No path: nessun percorso
-
-## Compilation
-
-gcc -O2 -o main main.c
-
 ## Result
 
-Final grade: 30/30L
+Final grade: 30L/30
