@@ -40,30 +40,6 @@ The system implements two symmetric pathfinding procedures:
   - maximum reachable distance (car autonomy)
 - At each step, the algorithm determines whether the next station is directly reachable or requires extending the path through previously visited nodes
 
-## Complexity Analysis
-
-Let n = number of stations, k = cars per station.
-
-### Time Complexity
-
--   BST operations:
-    -   Average: O(log n)\
-    -   Worst: O(n)
--   Pathfinding:
-    -   Forward traversal: O(n) average, O(n²) worst\
-    -   Backward traversal: O(n) average, O(n²) worst
-
-Worst-case quadratic behavior occurs only in degenerate layouts
-requiring repeated scans over partial paths.
-
-### Space Complexity
-
--   BST storage: O(n)
--   Cars storage: O(n)
--   Path structure: O(n)
-
-Total space complexity: O(n)
-
 ## Result
 
-Final grade: 30L/30
+Final grade: 30/30L
